@@ -22,6 +22,10 @@ names.push("Elena");
 
 console.log(names);
 
+//* Map retorna un array nuevo, for each retorna undefined
+
+let newArray =  names.map((index, elemento)=>console.log((`${index}. ${elemento}`)))
+
 //* Exercise #2
 // Write a JavaScript program to construct the following pattern, using a nested for loop.
 // *
