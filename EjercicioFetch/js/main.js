@@ -23,24 +23,57 @@ function addItem(item) {
 
 // after fetching the colors, call addItem with each color
 function fetchColorsList() {
-  const promesa = fetch("https://reqres.in/api/unknown", {
-    method: "GET",
-  });
-  promesa;
-  promesa
+  fetch("https://reqres.in/api/unknown")
+  //* El primer then maneja la respuesta de la solicitud HTTP
     .then((response) => {
-      response
-        .json()
-        .then((data) => {
-          addItem;
-        })
-        .catch((error) => {
-          console.log("Problema con el json" + error);
-        });
+      if (!response.ok) {
+        throw new Error("Network error" + response.statusText);
+      }
+      return response.json();
     })
-    .catch((err) => {
-      console.log("Problema en la solicitud" + err);
+    .then((data) => {
+      localStorage.setItem("COLORS", JSON.stringify(data.data));
+      console.log(data.data);
+      data.data.forEach((element) => {
+        addItem(element);
+      });
+    })
+    .catch((error) => {
+      console.log("Problema con fetch", error);
     });
 } //fetchColorsList
 
-function loadColorsFromStorage() {} //loadColorsFromStorage
+fetchColorsList();
+
+function loadColorsFromStorage() {
+  const datos = JSON.parse(localStorage.getItem("COLORS"));
+
+  datos.forEach((element) => {
+    addItem(element);
+  });
+  console.log(datos);
+} //loadColorsFromStorage
+
+loadColorsFromStorage();
+
+itemsContainer.insertAdjacentHTML(
+  "afterbegin",
+  "<button id='btnClear'>Limpiar</button>"
+);
+
+const btnClear = document.getElementById("btnClear");
+
+btnClear.addEventListener("click", () => {
+  localStorage.clear();
+});
+
+itemsContainer.insertAdjacentHTML(
+  "afterbegin",
+  "<button id='btnLoad'>Cargar</button>"
+);
+
+const btnLoad = document.getElementById("btnLoad");
+
+btnLoad.addEventListener("click", () => {
+  fetchColorsList();
+});

@@ -22,19 +22,24 @@ jsstyle.addEventListener("click", () => {
 
 const form = document.getElementById("form1");
 
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+
+  getValues();
+})
+
 function getValues() {
   //* form.elements es una colección de todos los elementos dentro del formulario
-  //   const firstName = form.elements.fname.value;
-  //   const lastName = form.elements.lname.value;
+    // const firstName = form.elements.fname.value;
+    // const lastName = form.elements.lname.value;
 
   //* busca un elemento de entrada (input) con un atributo name
   const firstName = document.querySelector("input[name='fname']").value;
   const lastName = document.querySelector("input[name='lname']").value;
 
+  //* 
   console.log(`${firstName} ${lastName}`);
 }
-
-getValues();
 
 //* Exercise #3
 //* Write a function and call it when clicking a button to show an alert with:
