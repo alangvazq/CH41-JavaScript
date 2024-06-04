@@ -58,41 +58,28 @@ class Employee extends Person {
       <p class="card-text text-end"><strong>${this.salary}</strong></p>`
     );
   }
+
+  setEmail(email) {
+    let re = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+.[^@ \t\r\n]+");
+    this.email = re.test(email) ? email : "correo@dominio.com";
+  }
 }
 
-let alan = new Employee(
-  "Alan",
-  "a@gmail.com",
-  22,
-  "Java Developer FullStack",
-  "TI",
-  150
+let empleados = new Array();
+
+empleados.push(
+  new Employee("Alan", "a@gmail.com", 22, "Java Developer FullStack", "TI", 150)
 );
-let vero = new Employee("Vero", "v@gmail.com", 25, "Developer", "TI", 150);
-let arely = new Employee(
-  "Arely",
-  "ar@gmail.com",
-  27,
-  "Developer Jr",
-  "TI",
-  150
+empleados.push(new Employee("Sebas", "v@gmail.com", 25, "Developer", "TI", 150));
+empleados.push(
+  new Employee("Paco", "ar@gmail.com", 27, "Developer Jr", "TI", 150)
 );
-let luis = new Employee(
-  "Luis",
-  "l@gmail.com",
-  50,
-  "Desarrollador",
-  "RH",
-  10000
+empleados.push(
+  new Employee("Luis", "l@gmail.com", 50, "Desarrollador", "RH", 10000)
 );
 
-console.log(alan);
-console.log(vero);
-console.log(arely);
+empleados[1].setEmail("1234gmail.com");
 
-alan.printInfo(divPersonas);
-vero.printInfo(divPersonas);
-arely.printInfo(divPersonas);
-luis.printInfo(divPersonas);
+empleados.forEach((empleado) => empleado.printInfo(divPersonas));
 
 Person.printTotal(divPersonas);
